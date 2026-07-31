@@ -1,30 +1,25 @@
 # The Ultimate Web Stack: Rust, Axum, & Postgres
 
-## Let's think about the naming here for the WTBR tech stack. What do we want this to say, and be?
+## What to name our tech Stack?
 - This should be uniquely WTBR. Fun, irreverant, and with hints of the open (source) road.
-- I think it would be fun if we name the stack something related but not necessarily using the words Buffalo or Roam.
 
-## Option 1: The Range
-Theme: the buffalo itself, broken into functional parts
-### _The Range_ 
-The whole stack, the territory everything lives on. Open, foundational, matches "Where the Buffalo Roam" almost literally.
-### Horn
-The backend. Structural, load-bearing, the part that does the goring/work. Rust's a natural fit here (bone-hard, core).
-### Hide
-The frontend. What people actually see and touch — texture, surface, presentation layer. Vue/Nuxt/UI all live in what users perceive.
+## My Initial Ideas
+1. _The Range / Horn / Hide_
+    The range encompasses the whole project, it's where the buffaloes roam. Horn is the backend: structural, load-baring. Hide is the frontend: it's what you see and touch
 
-## Option 2: Roadhouse / Backroom / Counter
-### Roadhouse
-The whole stack. The diner where people have good vibes.
-### Backroom
-Backend, were work happens out-of-sight.
-### Counter
-Frontend. Where customers are served.
+2. _Roadhouse / Backroom / Counter / Pantry ~ OR ~_
+    Classic Americana. Backroom is the server that does the hard work invisibly. The counter is the frontend, where customers are served. Pantry is the database.
 
-## Option 3: Base Camp / Grip / Village
-### Base Camp
-the whole stack. On a shoot, basecamp is where the trucks park and the crew stages from. Also frontier vocabulary. Home for the operation.
-### Grip
-backend. The grip department builds the rigging that holds everything up — invisible in the final product, load-bearing in every frame.
-### Village
-frontend, short for video village: the monitors where clients and directors actually watch the work. It is, literally, the place where people see what you made.
+3. _Diner / Skillet / Marquee / Freezer_
+    Classic Americana. Backroom is the skillet that does the hard work in the background. The marquee is the most visible/remarkable thing that brings custoemrs in. Freezer is the database.
+
+4. _Basecamp / Grip / Village_
+    Film production focused. Grips are the backend that keep everything together. Video village is the frontend where we see everything come to life.
+
+6. _The Pit / Firebox / Bark_
+    American BBQ, our favorite. Firebox for backend, bark for frontend.
+
+7. _Big Sky / Basin / Horizon_
+    Harkens back to where the buffaloes roamed. Big Sky is the whole stack. Basin is the backend, where everything pools and collects. Horizon is the frontend, the visible edge.
+
+
