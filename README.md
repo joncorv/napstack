@@ -1,24 +1,25 @@
+<h1 align="center">Big Sky</h1>
+
+<h3 align="center">Fast, opinionated, ours.</h3>
+
 <p align="center">
-  <img src="public/header.jpg" alt="Big Sky" width="720">
+  A Nuxt frontend, a Rust API, and a Postgres database — wired together and ready on day one.
 </p>
 
-# Big Sky
-
-**Big Sky** is our starter template for web projects: a Nuxt frontend, a Rust API, and a Postgres database, wired together with sane defaults so a new project starts on day one instead of week one.
-
-Clone it, rename it, build on it.
-
----
+<p align="center">
+  <img src="public/header.png" alt="Big Sky" width="720">
+</p>
 
 ## The Stack
 
 Three layers, each in its own top-level directory.
 
-| Layer    | Name      | Built with                            |
-| -------- | --------- | ------------------------------------- |
-| Frontend | `horizon` | Vue 3, Nuxt 4, Nuxt UI, Tailwind CSS  |
-| Backend  | `bedrock` | Rust, Axum, Tokio                     |
-| Database | `cellar`  | PostgreSQL, via Docker Compose        |
+| Name | Layer | Built with |
+| --- | --- | --- |
+| **Big Sky** | The whole stack | — |
+| **Horizon** | Frontend | Vue & Nuxt |
+| **Bedrock** | Backend | Rust & Axum |
+| **Cellar** | Database | PostgreSQL & SQLx |
 
 ```
 Browser  ->  horizon  ->  bedrock  ->  cellar
@@ -26,7 +27,16 @@ Browser  ->  horizon  ->  bedrock  ->  cellar
              :3000       :8080        :5432
 ```
 
-`horizon` renders the UI and talks to `bedrock` over HTTP. `bedrock` owns all business logic and is the only thing that touches the database. `cellar` stores the data and nothing else reaches it directly.
+`horizon` renders the UI and talks to `bedrock` over HTTP. `bedrock` owns all business logic and is the only thing that touches the database. `cellar` stores the data, and nothing else reaches it directly.
+
+## Why we named it
+
+The parts of a web app don't come with good names — they come with jargon. So we gave ours real ones. What we landed on is a cross-section of the land itself, top to bottom.
+
+- **Big Sky** — the whole thing. Everything above, below, and in between.
+- **Horizon** — the frontend. The visible edge. What you actually look at.
+- **Bedrock** — the backend. Structural, load-bearing, out of sight.
+- **Cellar** — the database. Dug in, cool and dark, and it remembers everything.
 
 ## Layout
 
@@ -37,6 +47,7 @@ big-sky/
 ├── cellar/      Postgres service definition
 ├── nix/         Reproducible dev environment
 └── public/      Repo assets
+```
 ```
 
 ## Requirements
