@@ -48,7 +48,7 @@ big-sky/
 ├── nix/         Reproducible dev environment
 └── public/      Repo assets
 ```
-```
+
 
 ## Requirements
 
