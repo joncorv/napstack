@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="public/header.png" alt="Big Sky" width="720">
+  <img src="horizon/public/header.png" alt="Big Sky" width="720">
 </p>
 
 ## The Stack
