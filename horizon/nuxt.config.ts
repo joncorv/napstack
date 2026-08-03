@@ -5,19 +5,20 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/hints',
     '@nuxt/image',
-    '@nuxtjs/eslint-module',
-    'nuxt-icons'
+    'nuxt-icons',
+    '@nuxt/fonts',
+    '@nuxt/icon'
   ],
+
+  // Client-side rendered. Nuxt emits a static index.html shell and the app
+  // boots entirely in the browser, so every $fetch goes out cross-origin.
+  ssr: false,
 
   devtools: {
     enabled: true
   },
 
   css: ['~/assets/css/main.css'],
-
-  routeRules: {
-    '/': { prerender: true }
-  },
 
   compatibilityDate: '2026-06-30',
 
@@ -28,5 +29,12 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+
+  fonts: {
+    families: [
+      { name: 'Sancreek', provider: 'google', weights: [400] },
+      { name: 'Inter', provider: 'google', weights: [400, 600] }
+    ]
   }
 })

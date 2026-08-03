@@ -3,6 +3,10 @@ export default defineAppConfig({
     colors: {
       primary: 'green',
       neutral: 'slate'
+    },
+    icon: {
+      mode: 'css',
+      cssLayer: 'base'
     }
   }
 })
