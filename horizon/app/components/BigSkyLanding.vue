@@ -18,10 +18,13 @@ async function addResident() {
   );
   population.value = data.population;
   toast.add({
+    id: "add",
     title: "We have added a resident",
     description: data.announcement,
     icon: "icon-park-solid:baby-taste",
     color: "success",
+    duration: 2000,
+    // progress: false,
   });
 }
 
@@ -32,10 +35,13 @@ async function removeResident() {
   population.value = data.population;
 
   toast.add({
+    id: "sub",
     title: "We have subtracted a resident",
     description: data.announcement,
     icon: "pinhead:skull-above-crossed-cutlasses",
     color: "error",
+    duration: 2000,
+    // progress: false,
   });
 }
 
