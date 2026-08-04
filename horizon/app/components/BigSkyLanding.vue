@@ -5,21 +5,38 @@ await callOnce(async () => {
   population.value = await $fetch('http://127.0.0.1:8080')
 })
 
-// Explicit locale rather than toLocaleString(): the server's default locale and the
-// browser's can disagree past 1,000, which would surface as a hydration mismatch.
-const numberFormat = new Intl.NumberFormat('en-US')
-const displayPopulation = computed(() => numberFormat.format(population.value))
+interface PopulationAnnouncement {
+  population: number
+  announcement: string
+}
+
+const toast = useToast()
 
 async function addResident() {
-  const { data } = await $fetch('http://127.0.0.1:8080/add')
-
-  console.log('JON LOG HERE: ', data)
-  population.value += 1
+  const data = await $fetch<PopulationAnnouncement>('http://127.0.0.1:8080/add')
+  population.value = data.population
+  toast.add({
+    title: 'We have added a resident',
+    description: data.announcement,
+    icon: 'i-lucide-wifi',
+    color: 'success'
+  })
 }
 
-function removeResident() {
-  population.value = Math.max(0, population.value - 1)
+async function removeResident() {
+  const data = await $fetch<PopulationAnnouncement>('http://127.0.0.1:8080/sub')
+  population.value = data.population
+
+  toast.add({
+    title: 'We have subtracted a resident',
+    description: data.announcement,
+    icon: 'i-lucide-wifi',
+    color: 'error'
+  })
 }
+
+const numberFormat = new Intl.NumberFormat('en-US')
+const displayPopulation = computed(() => numberFormat.format(population.value))
 
 const services = [
   { code: 'Horizon', port: ':3000', tech: 'Vue & Nuxt', desc: 'The visible edge. What you actually look at.' },
