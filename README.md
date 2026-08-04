@@ -1,6 +1,6 @@
 <h1 align="center">Big Sky</h1>
 
-<h3 align="center">The best web stack in the west.</h3>
+<h3 align="center">The best web framework in the west.</h3>
 
 <p align="center">
   A Nuxt frontend and a Rust API, wired together and working out of the box.

@@ -152,7 +152,7 @@ const services = [
         </h1>
 
         <p class="big-sky__lede">
-          You just scaffolded a project with the best web stack in the west.
+          You just created a project with the best web framework in the west.
           Every click on this counter calls your Axum server, which reads and
           writes to PostgreSQL — your full stack is already live and wired
           together.
