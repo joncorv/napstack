@@ -1,142 +1,76 @@
 <h1 align="center">Big Sky</h1>
 
-<h3 align="center">Fast, opinionated, ours.</h3>
+<h3 align="center">The best web stack in the west.</h3>
 
 <p align="center">
-  A Nuxt frontend, a Rust API, and a Postgres database — wired together and ready on day one.
+  A Nuxt frontend and a Rust API, wired together and working out of the box.
 </p>
 
 <p align="center">
   <img src="horizon/public/header.png" alt="Big Sky" width="720">
 </p>
 
+## What You Get
+
+Clone it, start two services, and there is a working full-stack app on screen — not a placeholder page.
+
+The landing page is a live demo of the wiring. It reads the current population from the Axum API on load, and the two buttons call real endpoints that mutate server state and return it, with a toast on each change. Every piece a real app needs is already threaded through: typed responses, CORS, SSR-safe hydration, and error-free reloads.
+
 ## The Stack
 
 Three layers, each in its own top-level directory.
 
-| Name | Layer | Built with |
-| --- | --- | --- |
-| **Big Sky** | The whole stack | — |
-| **Horizon** | Frontend | Vue & Nuxt |
-| **Bedrock** | Backend | Rust & Axum |
-| **Cellar** | Database | PostgreSQL & SQLx |
+| Name | Layer | Built with | Port |
+| --- | --- | --- | --- |
+| **Horizon** | Frontend | Vue & Nuxt | `:3000` |
+| **Bedrock** | Backend | Rust & Axum | `:8080` |
+| **Cellar** | Database | PostgreSQL & SQLx | `:5432` |
 
 ```
 Browser  ->  horizon  ->  bedrock  ->  cellar
              (Nuxt)      (Axum API)   (Postgres)
-             :3000       :8080        :5432
 ```
 
-`horizon` renders the UI and talks to `bedrock` over HTTP. `bedrock` owns all business logic and is the only thing that touches the database. `cellar` stores the data, and nothing else reaches it directly.
+`horizon` renders the UI and talks to `bedrock` over HTTP. `bedrock` owns the business logic and is the only thing that touches the database. `cellar` stores the data, and nothing else reaches it directly.
 
-## Why we named it
+## About the Names
 
-The parts of a web app don't come with good names — they come with jargon. So we gave ours real ones. What we landed on is a cross-section of the land itself, top to bottom.
+The parts of a web app tend to come with jargon instead of names. These are a cross-section of the land itself, top to bottom.
 
 - **Big Sky** — the whole thing. Everything above, below, and in between.
 - **Horizon** — the frontend. The visible edge. What you actually look at.
 - **Bedrock** — the backend. Structural, load-bearing, out of sight.
 - **Cellar** — the database. Dug in, cool and dark, and it remembers everything.
 
-## Layout
-
-```
-big-sky/
-├── horizon/     Nuxt frontend
-├── bedrock/     Axum API server
-├── cellar/      Postgres service definition
-├── nix/         Reproducible dev environment
-└── public/      Repo assets
-```
-
-
-## Requirements
-
-| Tool    | Version | Used by   |
-| ------- | ------- | --------- |
-| Node.js | 20+     | `horizon` |
-| pnpm    | 11+     | `horizon` |
-| Rust    | 1.85+   | `bedrock` |
-| Docker  | recent  | `cellar`  |
-
-Rust 1.85 is the floor for the 2024 edition. The exact pnpm version is pinned in `horizon/package.json`.
-
 ## Getting Started
 
+Requires Node.js 20+, pnpm 11+, and Rust 1.85+ (the floor for the 2024 edition).
+
 ```bash
-git clone https://github.com/joncorv/napstack.git big-sky
+git clone https://github.com/joncorv/big-sky.git
 cd big-sky
 ```
 
 Then start each layer in its own terminal.
 
-**Frontend — `horizon`**
-
 ```bash
-cd horizon
-pnpm install
-pnpm dev          # http://localhost:3000
+cd horizon && pnpm install && pnpm dev    # http://localhost:3000
+cd bedrock && cargo run                   # http://localhost:8080
 ```
 
-**Backend — `bedrock`**
+## The API
 
-```bash
-cd bedrock
-cargo run
-```
+| Route  | Returns                                    |
+| ------ | ------------------------------------------ |
+| `/`    | Current population                         |
+| `/add` | Increments, returns the count and a message |
+| `/sub` | Decrements, returns the count and a message |
 
-**Database — `cellar`**
+## Persistence
 
-```bash
-cd cellar
-docker compose up -d
-```
+`bedrock` currently holds the population in `AppState` behind an `Arc<Mutex<i32>>`, so the count is live and shared across clients but resets when the server restarts.
 
-Only `horizon` is fully running today. See [Status](#status) for where the other two stand.
-
-## Common Commands
-
-| Command           | Directory | What it does                        |
-| ----------------- | --------- | ----------------------------------- |
-| `pnpm dev`        | `horizon` | Dev server with hot reload          |
-| `pnpm build`      | `horizon` | Production build                    |
-| `pnpm lint`       | `horizon` | ESLint                              |
-| `pnpm typecheck`  | `horizon` | Type check with `vue-tsc`           |
-| `cargo run`       | `bedrock` | Run the API server                  |
-| `cargo test`      | `bedrock` | Run the test suite                  |
-| `cargo clippy`    | `bedrock` | Lint                                |
-| `cargo fmt`       | `bedrock` | Format                              |
-
-## Configuration
-
-Each layer will read its own `.env`, copied from a checked-in `.env.example`. The intended variables:
-
-| Variable        | Layer     | Purpose                        |
-| --------------- | --------- | ------------------------------ |
-| `DATABASE_URL`  | `bedrock` | Postgres connection string     |
-| `PORT`          | `bedrock` | Port the API listens on        |
-| `NUXT_API_BASE` | `horizon` | Base URL for the `bedrock` API |
-
-Nothing reads these yet. They are the convention to build against.
-
-## Status
-
-This is an early scaffold. Here is what is actually wired up today.
-
-| Piece                          | Status      |
-| ------------------------------ | ----------- |
-| Nuxt app with Nuxt UI          | Working     |
-| Axum project skeleton          | Scaffolded  |
-| HTTP routes and handlers       | Planned     |
-| Postgres Compose service       | Planned     |
-| Database migrations            | Planned     |
-| Nix dev shell                  | Planned     |
-| CI pipeline                    | Planned     |
-| Deployment                     | Planned     |
-
-## About the Name
-
-Big Sky is the open country the whole thing sits under. `bedrock` is the solid layer underneath that everything else is built on. `horizon` is the visible edge, the part people actually see. `cellar` is where things get stored and kept.
+Swapping that for Postgres is the one outstanding piece. The seam is deliberately narrow — the three handlers in `bedrock/src/main.rs` are the only things that touch the state, so a `PgPool` in `AppState` and three queries is the whole job. `cellar/` is where that service definition goes.
 
 ## License
 
