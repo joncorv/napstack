@@ -1,48 +1,67 @@
 <script setup lang="ts">
-const population: Ref<number> = useState('pop')
+const population: Ref<number> = useState("pop");
 
 await callOnce(async () => {
-  population.value = await $fetch('http://127.0.0.1:8080')
-})
+  population.value = await $fetch("http://127.0.0.1:8080");
+});
 
 interface PopulationAnnouncement {
-  population: number
-  announcement: string
+  population: number;
+  announcement: string;
 }
 
-const toast = useToast()
+const toast = useToast();
 
 async function addResident() {
-  const data = await $fetch<PopulationAnnouncement>('http://127.0.0.1:8080/add')
-  population.value = data.population
+  const data = await $fetch<PopulationAnnouncement>(
+    "http://127.0.0.1:8080/add",
+  );
+  population.value = data.population;
   toast.add({
-    title: 'We have added a resident',
+    title: "We have added a resident",
     description: data.announcement,
-    icon: 'i-lucide-wifi',
-    color: 'success'
-  })
+    icon: "icon-park-solid:baby-taste",
+    color: "success",
+  });
 }
 
 async function removeResident() {
-  const data = await $fetch<PopulationAnnouncement>('http://127.0.0.1:8080/sub')
-  population.value = data.population
+  const data = await $fetch<PopulationAnnouncement>(
+    "http://127.0.0.1:8080/sub",
+  );
+  population.value = data.population;
 
   toast.add({
-    title: 'We have subtracted a resident',
+    title: "We have subtracted a resident",
     description: data.announcement,
-    icon: 'i-lucide-wifi',
-    color: 'error'
-  })
+    icon: "pinhead:skull-above-crossed-cutlasses",
+    color: "error",
+  });
 }
 
-const numberFormat = new Intl.NumberFormat('en-US')
-const displayPopulation = computed(() => numberFormat.format(population.value))
+const numberFormat = new Intl.NumberFormat("en-US");
+const displayPopulation = computed(() => numberFormat.format(population.value));
 
 const services = [
-  { code: 'Horizon', port: ':3000', tech: 'Vue & Nuxt', desc: 'The visible edge. What you actually look at.' },
-  { code: 'Bedrock', port: ':8080', tech: 'Rust & Axum', desc: 'Structural, load-bearing, out of sight.' },
-  { code: 'Cellar', port: ':5432', tech: 'PostgreSQL & SQLx', desc: 'Dug in, cool and dark. It remembers everything.' }
-]
+  {
+    code: "Horizon",
+    port: ":3000",
+    tech: "Vue & Nuxt",
+    desc: "The visible edge. What you actually look at.",
+  },
+  {
+    code: "Bedrock",
+    port: ":8080",
+    tech: "Rust & Axum",
+    desc: "Structural, load-bearing, out of sight.",
+  },
+  {
+    code: "Cellar",
+    port: ":5432",
+    tech: "PostgreSQL & SQLx",
+    desc: "Dug in, cool and dark. It remembers everything.",
+  },
+];
 </script>
 
 <template>
@@ -62,11 +81,7 @@ const services = [
     <div class="big-sky__scrim" />
 
     <!-- Carves an inset shadow into the numerals so they read as routed into the wood. -->
-    <svg
-      class="big-sky__defs"
-      aria-hidden="true"
-      focusable="false"
-    >
+    <svg class="big-sky__defs" aria-hidden="true" focusable="false">
       <defs>
         <filter
           id="big-sky-inner-shadow"
@@ -76,14 +91,8 @@ const services = [
           height="140%"
         >
           <!-- Invert the alpha to get the "outside" of the glyphs -->
-          <feComponentTransfer
-            in="SourceAlpha"
-            result="invertedAlpha"
-          >
-            <feFuncA
-              type="table"
-              tableValues="1 0"
-            />
+          <feComponentTransfer in="SourceAlpha" result="invertedAlpha">
+            <feFuncA type="table" tableValues="1 0" />
           </feComponentTransfer>
 
           <!-- Blur and offset it so it bleeds inward from the top -->
@@ -107,10 +116,7 @@ const services = [
             result="innerMask"
           />
 
-          <feFlood
-            flood-color="rgba(0, 0, 0, 0.75)"
-            result="shadowColor"
-          />
+          <feFlood flood-color="rgba(0, 0, 0, 0.75)" result="shadowColor" />
           <feComposite
             in="shadowColor"
             in2="innerMask"
@@ -129,12 +135,13 @@ const services = [
     <!-- 2-up above 64rem: copy on the left, sign on the right. Stacks below. -->
     <div class="big-sky__layout">
       <section class="big-sky__panel">
-        <h1 class="big-sky__title">
-          Howdy, Stranger 🤠
-        </h1>
+        <h1 class="big-sky__title">Howdy, Stranger 🤠</h1>
 
         <p class="big-sky__lede">
-          You just scaffolded a project with the best web stack in the west. Every click on this counter calls your Axum server, which reads and writes to PostgreSQL — your full stack is already live and wired together.
+          You just scaffolded a project with the best web stack in the west.
+          Every click on this counter calls your Axum server, which reads and
+          writes to PostgreSQL — your full stack is already live and wired
+          together.
         </p>
 
         <ul class="big-sky__services">
@@ -148,10 +155,7 @@ const services = [
               <span class="big-sky__service-port">{{ service.port }}</span>
             </div>
 
-            <span
-              class="big-sky__service-rule"
-              aria-hidden="true"
-            />
+            <span class="big-sky__service-rule" aria-hidden="true" />
 
             <div class="big-sky__service-body">
               <span class="big-sky__service-tech">{{ service.tech }}</span>
@@ -167,16 +171,15 @@ const services = [
 
       <div class="big-sky__showcase">
         <p class="big-sky__live">
-          <span
-            class="big-sky__live-dot"
-            aria-hidden="true"
-          >
+          <span class="big-sky__live-dot" aria-hidden="true">
             <span class="big-sky__live-ping" />
             <span class="big-sky__live-core" />
           </span>
 
           <span class="big-sky__live-text">
-            Live — routed through <span class="big-sky__live-em">Bedrock</span> &amp; <span class="big-sky__live-em">Cellar</span>
+            Live — routed through
+            <span class="big-sky__live-em">Bedrock</span> &amp;
+            <span class="big-sky__live-em">Cellar</span>
           </span>
         </p>
 
@@ -193,10 +196,7 @@ const services = [
             class="big-sky__sign-img"
           />
 
-          <p
-            class="big-sky__count"
-            aria-live="polite"
-          >
+          <p class="big-sky__count" aria-live="polite">
             {{ displayPopulation }}
           </p>
         </div>
@@ -211,11 +211,7 @@ const services = [
             Subtract a person 😵
           </button>
 
-          <button
-            type="button"
-            class="big-sky__btn"
-            @click="addResident"
-          >
+          <button type="button" class="big-sky__btn" @click="addResident">
             Add a person 👶
           </button>
         </div>
@@ -248,7 +244,7 @@ const services = [
   min-height: 100vh;
   min-height: 100dvh;
   padding: 4rem 1.5rem;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .big-sky__bg {
@@ -302,7 +298,7 @@ const services = [
 
 .big-sky__title {
   margin: 0 0 0.25rem;
-  font-family: 'Sancreek', serif;
+  font-family: "Sancreek", serif;
   font-size: 2.25rem;
   font-weight: 400;
   line-height: 1.1;
@@ -467,7 +463,7 @@ const services = [
   display: grid;
   place-items: center;
   margin: 0;
-  font-family: 'Sancreek', serif;
+  font-family: "Sancreek", serif;
   font-size: clamp(3rem, 10vw, 5rem);
   line-height: 1;
   color: var(--sign-ink);
@@ -499,7 +495,10 @@ const services = [
   box-shadow: 0 2px 16px rgb(0 0 0 / 0.35);
   backdrop-filter: blur(12px);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 120ms ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 120ms ease;
 }
 
 .big-sky__btn:hover:not(:disabled) {
